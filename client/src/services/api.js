@@ -1,7 +1,15 @@
-const API_URL = 'http://localhost:3000/api/test';
+const API_URL = "http://localhost:3000/api";
 
-export const getRecordsForAllTable = async () => {
-    const response = await fetch(`${API_URL}/countRecordsOfAllTables`);
-    const data = await response.json();
-    return data;
+export const createThing = async (thing) => {
+  const response = await fetch(API_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(thing),
+  });
+  return response.json();
+};
+
+export const getCountries = async () => {
+  const response = await fetch(`${API_URL}/test/`);
+  return response.json();
 };
