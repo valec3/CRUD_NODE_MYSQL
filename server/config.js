@@ -1,7 +1,7 @@
 export const configDB = {
   host: "localhost",
   user: "root",
-  password: "",
+  password: "toor",
   database: "iccpuc_escala",
   port: 3306,
 };

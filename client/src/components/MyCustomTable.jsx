@@ -25,6 +25,7 @@ const MyCustomTable = ({
     }
     const handleClickDelete = (id) => {
         console.log("Delete", id);
+        alert("Are you sure?");
         deleteRecordTable(id);
     }
     const handleClickAdd = () => {
@@ -57,7 +58,7 @@ const MyCustomTable = ({
                 <h2 className="text-2xl font-bold text-center py-4">{nameTable}</h2>
                 {crudOptions && (
                     <button
-                        className="font-bold bg-green-400 text-white rounded-md px-3 py-1 w-fit"
+                        className="font-bold bg-green-400 text-white rounded-md px-3 py-1 w-fit hover:bg-green-600 transition-all duration-300"
                         type="button"
                         onClick={handleClickAdd}
                     >
@@ -65,28 +66,28 @@ const MyCustomTable = ({
                     </button>
                     )
                 }
-                <div className={`grid ${columnsOfTable} items-center font-bold text-xl py-1 mb-2 border-slate-300 border-b-[2px]`}>
+                <div className={`grid grid-cols-2 ${columnsOfTable}  items-center font-bold text-xl py-1 mb-2 border-slate-300 border-b-[2px]`}>
                     {columns.map((column) => (
                         <div key={column.field}>{column.headerName}</div>
                     ))}
                 </div>
                 <div >
                     {data.map((row) => (
-                        <div key={row[keyValue]} className={`grid ${columnsOfTable} items-center py-1 border-b-slate-400 border-b-[.5px]`}>
+                        <div key={row[keyValue]} className={`grid ${columnsOfTable} items-center py-1 border-b-slate-400 border-b-[.5px] hover:bg-slate-600`}>
                             {columns.map((column) => (
                                 <div key={column.field}>{row[column.field]}</div>
                             ))}
                             {crudOptions && (
                                 <div className="ml-4 flex gap-2 p-1">
                                     <button
-                                        className="font-bold bg-yellow-400 text-black rounded-md px-3 py-1"
+                                        className="font-bold bg-yellow-400 hover:bg-yellow-500 text-black rounded-md px-3 py-1"
                                         type="button"
                                         onClick={()=>handleClickEdit(row[keyValue])}
                                     >
                                         Edit
                                     </button>
                                     <button
-                                        className="font-bold bg-red-400 text-white rounded-md px-3 py-1"
+                                        className="font-bold bg-red-400 hover:bg-red-500 text-white rounded-md px-3 py-1"
                                         type="button"
                                         onClick={()=>handleClickDelete(row[keyValue])}
                                     >
