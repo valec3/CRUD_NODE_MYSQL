@@ -9,11 +9,6 @@ export const createThing = async (thing) => {
     return response.json();
 };
 
-export const getCountries = async () => {
-    const response = await fetch(`${API_URL}/test/`);
-    return response.json();
-};
-
 export const getReportIssuesByProduct = async () => {
     const response = await fetch(`${API_URL}/report/`);
     return response.json();
@@ -22,8 +17,20 @@ export const getReportIssuesAndSubIssues = async () => {
     const response = await fetch(`${API_URL}/report/issues`);
     return response.json();
 };
-
 export const getReportCompaniesMoreIssues = async () => {
     const response = await fetch(`${API_URL}/report/companies`);
+    return response.json();
+};
+export const getReportGeographicDistribution = async () => {
+    const response = await fetch(`${API_URL}/report/geographic`);
+    return response.json();
+};
+
+export const getReportResponseTime = async () => {
+    const response = await fetch(`${API_URL}/report/response-time`);
+    return response.json();
+};
+export const getReportFrequencyComplaints = async () => {
+    const response = await fetch(`${API_URL}/report/frequency`);
     return response.json();
 };

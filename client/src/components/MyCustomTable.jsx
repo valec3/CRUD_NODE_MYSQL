@@ -87,7 +87,7 @@ const MyCustomTable = ({
                                 } items-center px-2 py-2 border-b-slate-400/15 border-b-[.5px] hover:bg-slate-800 transition-all duration-300`}
                             >
                                 {columns.map((column) => (
-                                    <div key={column.field}>
+                                    <div key={column.field || idx}>
                                         {row[column.field] || 'No especificado'}
                                     </div>
                                 ))}

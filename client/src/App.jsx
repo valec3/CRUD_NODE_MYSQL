@@ -1,6 +1,6 @@
 import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { Countries, Home, ReportGeneral } from './pages';
+import { Home, ReportGeneral, ReportGeographic, ReportIssues } from './pages';
 import PieGraphic from './components/PieGraphic';
 function App() {
     return (
@@ -8,10 +8,14 @@ function App() {
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<Home />} />
-                    <Route path="/countries" element={<Countries />} />
                     <Route
                         path="/reporte/general"
                         element={<ReportGeneral />}
+                    />
+                    <Route path="/reporte/issues" element={<ReportIssues />} />
+                    <Route
+                        path="/reporte/geografia"
+                        element={<ReportGeographic />}
                     />
                 </Routes>
             </BrowserRouter>

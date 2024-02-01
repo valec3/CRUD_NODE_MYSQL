@@ -24,9 +24,6 @@ const Home = () => {
                 >
                     Geografía y tiempo:
                 </Link>
-                <Link to="/reporte/otros" className="btn-dashboard-principal">
-                    Otros reportes
-                </Link>
             </div>
         </section>
     );

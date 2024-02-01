@@ -1,81 +1,44 @@
-import { useEffect, useState } from 'react';
-import MyCustomTable from '../../components/MyCustomTable';
-import {
-    getReportIssuesByProduct,
-    getReportCompaniesMoreIssues,
-    getReportIssuesAndSubIssues,
-} from '../../services/api';
-import { Link } from 'react-router-dom';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import { Pie } from 'react-chartjs-2';
+
+ChartJS.register(ArcElement, Tooltip, Legend);
+
+export const data = {
+    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+    datasets: [
+        {
+            label: '# of Votes',
+            data: [12, 19, 3, 5, 2, 3],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)',
+            ],
+            borderWidth: 1,
+        },
+    ],
+};
+
 const ReportGeneral = () => {
-    const [dataIssuesByProduct, setDataIssuesByProduct] = useState([]);
-    const [dataIssuesandSubIssue, setDataIssuesandSubIssue] = useState([]);
-    const [dataCompaniesMoreIssues, setDataCompaniesMoreIssues] = useState([]);
-
-    useEffect(() => {
-        const getDataIssuesByProduct = async () => {
-            const data = await getReportIssuesByProduct();
-            // console.log('data:', data);
-            setDataIssuesByProduct(data);
-        };
-        getDataIssuesByProduct();
-    }, []);
-
-    useEffect(() => {
-        const getDataIssuesAndSubIssues = async () => {
-            const data = await getReportIssuesAndSubIssues();
-            // console.log('data:', data);
-            setDataIssuesandSubIssue(data);
-        };
-        getDataIssuesAndSubIssues();
-    }, []);
-
-    useEffect(() => {
-        const getDataCompaniesMoreIssues = async () => {
-            const data = await getReportCompaniesMoreIssues();
-            setDataCompaniesMoreIssues(data);
-        };
-        getDataCompaniesMoreIssues();
-    }, []);
-
-    console.log(dataIssuesandSubIssue);
     return (
-        <section className="mt-8 px-6">
+        <section>
+            <h2 className="py-6 text-purple-300 text-4xl font-bold text-center">
+                Graficas de los datos
+            </h2>
             <div>
-                <div className="mt-8 ml-8">
-                    <Link
-                        to="/"
-                        className="bg-red-600 uppercase font-bold text-xl text-white rounded-md px-3 py-2 w-fit hover:bg-red-800 transition-all duration-300"
-                    >
-                        {''}
-                        Volver al inicio{' '}
-                    </Link>
-                </div>
-                <MyCustomTable
-                    columns={[
-                        { field: 'ProductName', headerName: 'Producto' },
-                        { field: 'TotalQuejas', headerName: 'Quejas' },
-                    ]}
-                    data={dataIssuesByProduct}
-                    keyValue={'ProductName'}
-                    nameTable="Numero de quejas por producto"
-                />
+                <Pie data={data} />
             </div>
-            <div>
-                <MyCustomTable
-                    columns={[
-                        { field: 'Issue', headerName: 'Queja' },
-                        { field: 'SubIssue', headerName: 'Inquietud' },
-                        { field: 'TotalQuejas', headerName: 'Total' },
-                    ]}
-                    data={dataIssuesandSubIssue}
-                    keyValue={'Issue'}
-                    nameTable="Numero de quejas y inquietudes por producto"
-                />
-            </div>
-            {/* <div>
-                <h2>Numero de quejas por producto</h2>
-                <MyCustomTable />
-            </div> */}
         </section>
     );
 };
