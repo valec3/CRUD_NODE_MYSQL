@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
-import { getCountries } from "../services/api";
-import MyCustomTable from "../components/MyCustomTable";
+import { useEffect, useState } from 'react';
+import { getCountries } from '../services/api';
+import MyCustomTable from '../components/MyCustomTable';
 
 const Countries = () => {
     const [countries, setCountries] = useState([]);
@@ -8,21 +8,21 @@ const Countries = () => {
         getCountries().then((data) => setCountries(data));
     }, []);
     console.log(countries);
-    
+
     return (
         <section>
-        <div>
-            <MyCustomTable
-                columns={[
-                    { field: "Id", headerName: "Id" },
-                            { field: "NameE", headerName: "Nombre" },
-                            { field: "NameS", headerName: "NombreS" },
-                ]}
-                data={countries}
-                keyValue={"Id"}
-                nameTable="Onu"
-            />
-        </div>
+            <div>
+                <MyCustomTable
+                    columns={[
+                        { field: 'Id', headerName: 'Id' },
+                        { field: 'NameE', headerName: 'Nombre' },
+                        { field: 'NameS', headerName: 'NombreS' },
+                    ]}
+                    data={countries}
+                    keyValue={'Id'}
+                    nameTable="Onu"
+                />
+            </div>
         </section>
     );
 };

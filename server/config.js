@@ -1,9 +1,9 @@
 export const configDB = {
-  host: "localhost",
-  user: "root",
-  password: "toor",
-  database: "iccpuc_escala",
-  port: 3306,
+    host: 'localhost',
+    user: 'root',
+    password: 'toor',
+    database: 'exa_fnl',
+    port: 3306,
 };
 
 // fix possible error: ER_NOT_SUPPORTED_AUTH_MODE

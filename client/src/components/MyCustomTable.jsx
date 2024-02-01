@@ -1,48 +1,50 @@
 /* eslint-disable react/prop-types */
 
-import { useState } from "react";
+import { useState } from 'react';
 
 const MyCustomTable = ({
     columns,
     data,
     keyValue,
     nameTable,
-    crudOptions = true,
+    crudOptions = false,
     editRecordTable,
     deleteRecordTable,
     addRecordTable,
 }) => {
-    const columnsOfTable = `grid-cols-${crudOptions ? columns.length + 1 : columns}`;
+    const columnsOfTable = `grid-cols-${
+        crudOptions ? columns.length + 1 : columns.length
+    }`;
     const [dataState, setDataState] = useState(data); // [
     const [openModalEdit, setOpenModalEdit] = useState(false);
-    const [typeModal, setTypeModal] = useState(""); // edit, add
-    const [idRecord, setIdRecord] = useState(""); // [
+    const [typeModal, setTypeModal] = useState(''); // edit, add
+    const [idRecord, setIdRecord] = useState(''); // [
     const handleClickEdit = (id) => {
-        console.log("Edit", id);
+        console.log('Edit', id);
         setIdRecord(id);
-        setTypeModal("edit");
+        setTypeModal('edit');
         setOpenModalEdit(true);
-    }
+    };
     const handleClickDelete = (id) => {
-        console.log("Delete", id);
-        alert("Are you sure?");
+        console.log('Delete', id);
+        alert('Are you sure?');
         deleteRecordTable(id);
-    }
+    };
     const handleClickAdd = () => {
-        console.log("Add");
-        setTypeModal("add");
+        console.log('Add');
+        setTypeModal('add');
         setOpenModalEdit(true);
-    }
+    };
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("Save");
-        if(!typeModal) return;
-        if (typeModal === "edit") {
+        console.log('Save');
+        if (!typeModal) return;
+        if (typeModal === 'edit') {
             editRecordTable();
         } else {
             addRecordTable();
         }
-    }
+    };
     const handleChangeData = (e) => {
         const { name, value } = e.target;
         setDataState({
@@ -50,12 +52,15 @@ const MyCustomTable = ({
             [name]: value,
         });
         console.log(dataState);
-    }
+    };
     console.log(idRecord);
     return (
         <section className="px-10 py-3 text-white">
+            <span className="hidden grid-cols-3 grid-cols-2 grid-cols-4 grid-cols-5 grid-cols-6 grid-cols-7 grid-cols-8"></span>
             <div>
-                <h2 className="text-2xl font-bold text-center py-4">{nameTable}</h2>
+                <h2 className="text-2xl xl:text-3xl mb-8 font-bold text-center py-4 text-pink-400">
+                    {nameTable}
+                </h2>
                 {crudOptions && (
                     <button
                         className="font-bold bg-green-400 text-white rounded-md px-3 py-1 w-fit hover:bg-green-600 transition-all duration-300"
@@ -64,39 +69,53 @@ const MyCustomTable = ({
                     >
                         Add
                     </button>
-                    )
-                }
-                <div className={`grid grid-cols-2 ${columnsOfTable}  items-center font-bold text-xl py-1 mb-2 border-slate-300 border-b-[2px]`}>
-                    {columns.map((column) => (
-                        <div key={column.field}>{column.headerName}</div>
-                    ))}
-                </div>
-                <div >
-                    {data.map((row) => (
-                        <div key={row[keyValue]} className={`grid ${columnsOfTable} items-center py-1 border-b-slate-400 border-b-[.5px] hover:bg-slate-600`}>
-                            {columns.map((column) => (
-                                <div key={column.field}>{row[column.field]}</div>
-                            ))}
-                            {crudOptions && (
-                                <div className="ml-4 flex gap-2 p-1">
-                                    <button
-                                        className="font-bold bg-yellow-400 hover:bg-yellow-500 text-black rounded-md px-3 py-1"
-                                        type="button"
-                                        onClick={()=>handleClickEdit(row[keyValue])}
-                                    >
-                                        Edit
-                                    </button>
-                                    <button
-                                        className="font-bold bg-red-400 hover:bg-red-500 text-white rounded-md px-3 py-1"
-                                        type="button"
-                                        onClick={()=>handleClickDelete(row[keyValue])}
-                                    >
-                                        Delete
-                                    </button>
-                                </div>
-                            )}
-                        </div>
-                    ))}
+                )}
+                <div className="shadow-lg border-[2px] border-slate-600/40 rounded-md">
+                    <div
+                        className={`grid grid-cols-2 ${columnsOfTable}  items-center font-bold text-xl py-1 mb-2 border-slate-300 border-b-[2px] px-2`}
+                    >
+                        {columns.map((column) => (
+                            <div key={column.field}>{column.headerName}</div>
+                        ))}
+                    </div>
+                    <div className=" max-h-[700px] overflow-y-auto">
+                        {data.map((row, idx) => (
+                            <div
+                                key={row[keyValue]}
+                                className={`grid ${columnsOfTable} ${
+                                    idx % 2 == 0 ? 'bg-[#151516]' : ''
+                                } items-center px-2 py-2 border-b-slate-400/15 border-b-[.5px] hover:bg-slate-800 transition-all duration-300`}
+                            >
+                                {columns.map((column) => (
+                                    <div key={column.field}>
+                                        {row[column.field] || 'No especificado'}
+                                    </div>
+                                ))}
+                                {crudOptions && (
+                                    <div className="ml-4 flex gap-2 p-1">
+                                        <button
+                                            className="font-bold bg-yellow-400 hover:bg-yellow-500 text-black rounded-md px-3 py-1"
+                                            type="button"
+                                            onClick={() =>
+                                                handleClickEdit(row[keyValue])
+                                            }
+                                        >
+                                            Edit
+                                        </button>
+                                        <button
+                                            className="font-bold bg-red-400 hover:bg-red-500 text-white rounded-md px-3 py-1"
+                                            type="button"
+                                            onClick={() =>
+                                                handleClickDelete(row[keyValue])
+                                            }
+                                        >
+                                            Delete
+                                        </button>
+                                    </div>
+                                )}
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </div>
             <div className="edit-modal">
@@ -112,20 +131,27 @@ const MyCustomTable = ({
                             </button>
                             <form onSubmit={handleSubmit}>
                                 <div className="grid grid-cols-2 gap-4">
-                                    {
-                                        columns.map((column) => (
-                                            <div key={column.field} className="flex gap-4">
-                                                <label className="font-bold">{column.headerName}</label>
-                                                <input
-                                                    className="rounded-md border-slate-300 border-2 p-1 flex-1 text-black"
-                                                    type="text"
-                                                    name={column.field}
-                                                    defaultValue={data[idRecord-1][column.field] || ""}
-                                                    onChange={handleChangeData}
-                                                />
-                                            </div>
-                                        ))
-                                    }
+                                    {columns.map((column) => (
+                                        <div
+                                            key={column.field}
+                                            className="flex gap-4"
+                                        >
+                                            <label className="font-bold">
+                                                {column.headerName}
+                                            </label>
+                                            <input
+                                                className="rounded-md border-slate-300 border-2 p-1 flex-1 text-black"
+                                                type="text"
+                                                name={column.field}
+                                                defaultValue={
+                                                    data[idRecord - 1][
+                                                        column.field
+                                                    ] || ''
+                                                }
+                                                onChange={handleChangeData}
+                                            />
+                                        </div>
+                                    ))}
                                 </div>
                                 <div className="flex justify-end">
                                     <button
